@@ -15,8 +15,8 @@ dscl . -create /Users/"$username"
 dscl . -create /Users/"$username" RealName "$fullname"
 dscl . -create /Users/"$username" UserShell /bin/zsh
 dscl . -create /Users/"$username" NFSHomeDirectory /Users/"$username"
-dscl . -create /Users/"$username" UniqueID 1002
-dscl . -create /Users/"$username" PrimaryGroupID 1000
+dscl . -create /Users/"$username" UniqueID 502
+dscl . -create /Users/"$username" PrimaryGroupID 20
 echo -e "\nPlease type a temporary password for the new user\n"
 read pass
 dscl . -passwd /Users/"$username" "$pass"
