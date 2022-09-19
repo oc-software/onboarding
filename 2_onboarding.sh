@@ -6,9 +6,9 @@ read -n 1 -srp "Press any key to continue once you are done checking Jamf, or ct
 jamf policy
 
 
-echo -e "\nPlease type the new user's username:\n"
+echo -e "\nPlease type the new user's username(Do not use quotes):\n"
 read username
-echo -e "\nPlease type the new user's full name:\n"
+echo -e "\nPlease type the new user's full name(Do not use quotes):\n"
 read fullname
 
 dscl . -create /Users/"$username"
@@ -17,7 +17,7 @@ dscl . -create /Users/"$username" UserShell /bin/zsh
 dscl . -create /Users/"$username" NFSHomeDirectory /Users/"$username"
 dscl . -create /Users/"$username" UniqueID 502
 dscl . -create /Users/"$username" PrimaryGroupID 20
-echo -e "\nPlease type a temporary password for the new user\n"
+echo -e "\nPlease type a temporary password for the new user(Do not use quotes)\n"
 read pass
 dscl . -passwd /Users/"$username" "$pass"
 
