@@ -1,8 +1,17 @@
 ###------------------ Initial configuration for Windows devices ------------------
 
 #------------------ Warns of reboot possibility and prompts to continue ------------------
-$warning = Read-Host "If the computer name needs to be changed this device will reboot upon completion, continue? [y/n]"
-if ($warning -eq 'y'){
+$title = 'Device will restart upon completion'
+$message = 'Continue?'
+$yes = New-Object System.Management.Automation.ChoiceDescription '&Yes', 'Will reboot'
+$no = New-Object System.Management.Automation.Host.ChoiceDescription '&No', 'Exits'
+$options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
+$warning = $host.UI.PromptForChoice($title, $message, $options, 0)
+switch ($warning) {
+    0 {$choice = 'y'}
+    1 {$choice = 'n'}
+}
+if ($choice -eq 'y'){
     Write-Host
 }
 else {
@@ -14,13 +23,13 @@ $admin = Read-Host "Please enter the name of the local admin"
 #------------------ Asks user to set Owner's password with confirmation it was entered correct then applies it ------------------
 if (Get-LocalUser -Name $admin) {
     do {
-        $pass = Read-Host -AsSecureString -MaskInput "Please enter a password for $admin"
-        $passConfirm = Read-Host -AsSecureString -MaskInput "Please confirm the password"
+        $pass = Read-Host -AsSecureString -Prompt "Please enter a password for $admin"
+        $passConfirm = Read-Host -AsSecureString -Prompt "Please confirm the password"
     }
     while ($pass -notmatch $passConfirm) {
-        Get-LocalUser -Name $admin | Set-LocalUser -Password $pass
-        Write-Host "$admin's password has been set"
     }
+    Get-LocalUser -Name $admin | Set-LocalUser -Password $pass
+    Write-Host "$admin's password has been set"
 }
 else {
     Write-Error "$admin does not exist, please rerun this script and enter an existing local admin"
@@ -32,4 +41,5 @@ if ($hostName -notmatch $env:COMPUTERNAME) {
 }
 else {
     Write-Host "Computer name already set to $hostName"
+    Restart-Computer -Force
 }
