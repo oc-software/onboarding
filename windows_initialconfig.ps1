@@ -14,8 +14,8 @@ $admin = Read-Host "Please enter the name of the local admin"
 #------------------ Asks user to set Owner's password with confirmation it was entered correct then applies it ------------------
 if (Get-LocalUser -Name $admin) {
     do {
-        $pass = Read-Host "Please enter a password for $admin" -AsSecureString -MaskInput
-        $passConfirm = Read-Host "Please confirm the password" -AsSecureString -MaskInput
+        $pass = Read-Host -AsSecureString -MaskInput "Please enter a password for $admin"
+        $passConfirm = Read-Host -AsSecureString -MaskInput "Please confirm the password"
     }
     while ($pass -notmatch $passConfirm) {
         Get-LocalUser -Name $admin | Set-LocalUser -Password $pass
