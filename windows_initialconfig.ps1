@@ -1,17 +1,9 @@
 ###------------------ Initial configuration for Windows devices ------------------
 
 #------------------ Warns of reboot possibility and prompts to continue ------------------
-$title = 'Device will restart upon completion'
-$message = 'Continue?'
-$yes = New-Object System.Management.Automation.ChoiceDescription '&Yes', 'Will reboot'
-$no = New-Object System.Management.Automation.Host.ChoiceDescription '&No', 'Exits'
-$options = [System.Management.Automation.Host.ChoiceDescription[]]($yes,$no)
-$warning = $host.UI.PromptForChoice($title, $message, $options, 0)
-switch ($warning) {
-    0 {$choice = 'y'}
-    1 {$choice = 'n'}
-}
-if ($choice -eq 'y'){
+$warning = Read-Host -Prompt "Device will reboot upon completion, continue? [y/n]"
+
+if ($warning -eq 'y'){
     Write-Host
 }
 else {
