@@ -3,7 +3,7 @@
 #------------------ Warns of reboot possibility and prompts to continue ------------------
 $warning = Read-Host "If the computer name needs to be changed this device will reboot upon completion, continue? [y/n]"
 if ($warning -eq 'y'){
-    continue
+    Write-Host
 }
 else {
     exit
