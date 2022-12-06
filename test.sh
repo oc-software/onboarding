@@ -8,7 +8,7 @@ echo -e "\n$test\n"
 read -r -p "\nDo you like ducks? [y/n]" continue
 echo
 if [[ "$continue" == "y" ]]; then
-  echo "\nGood...\n"
- else
-  echo "\nHmmmm....\n"
- fi
+  echo -e "\nGood...\n"
+else
+  echo -e "\nHmmmm....\n"
+fi
