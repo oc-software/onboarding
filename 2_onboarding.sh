@@ -11,10 +11,9 @@ read -r username
 echo -e "\nPlease type a temporary password for the new user(Do not use quotes):\n"
 read -r pass
 
-read -r -p "Is this user an administrator? [y/n]" continue
+read -r -p "Does this user need a local admin account? [y/n]" continue
 echo
-if [ "$continue" == "y" ]
-then
+if [[ "$continue" == "y" ]]; then
     admin="$username.admin"
     sysadminctl -addUser "$username" -password "$pass"
 
@@ -28,5 +27,4 @@ else
     sysadminctl -addUser "$username" -password "$pass"
     echo -e "\nComplete!\n"
     echo -e "\n\n\n!! Please reboot computer !! \n\n\n"
-    exit
 fi
