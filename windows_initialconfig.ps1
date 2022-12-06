@@ -11,9 +11,9 @@ else {
 }
 
 $hostName = Read-Host "Please enter the computer name"
-$admin = Read-Host "Please enter the name of the local admin"
+$admin = Get-LocalUser -Name "owner"
 #------------------ Asks user to set Owner's password with confirmation it was entered correct then applies it ------------------
-if (Get-LocalUser -Name $admin) {
+if ($admin) {
     do {
         $pass = Read-Host -AsSecureString -Prompt "Please enter a password for $admin"
         $passConfirm = Read-Host -AsSecureString -Prompt "Please confirm the password"
@@ -33,5 +33,6 @@ if ($hostName -notmatch $env:COMPUTERNAME) {
 }
 else {
     Write-Host "Computer name already set to $hostName"
+    Start-Sleep -Seconds 5
     Restart-Computer -Force
 }
